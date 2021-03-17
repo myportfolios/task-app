@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
     //remove the  word 'Bearer; from the token
     const token = req.header("Authorization").replace("Bearer ", "");
     //verify the token using the secret
-    const decoded = jwt.verify(token, "thisismysecretkey");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     //get the verified user from the db using id in the decoded token
     const user = await User.findOne({
       _id: decoded._id,
